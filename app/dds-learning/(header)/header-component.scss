@@ -1,0 +1,10 @@
+.header {
+  padding-left: var(--dds-spacing-sm);
+  background-color: white;
+  color: var(--dds-color-blue-70);
+  border-bottom: 2px solid var(--dds-color-gray-30);
+}
+
+.header__title {
+  color: var(--dds-color-blue-60);
+}

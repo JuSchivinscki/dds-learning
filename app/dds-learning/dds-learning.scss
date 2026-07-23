@@ -1,0 +1,15 @@
+.dds-learning-layout {
+  min-height: 100vh;
+  align-items: stretch;
+
+  :global(.dds__sidenav) {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+}
+
+.dds-learning-content {
+  padding: 2rem;
+  overflow-y: auto;
+}

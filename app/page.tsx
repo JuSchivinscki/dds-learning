@@ -51,7 +51,7 @@ export default function Home() {
           scalability through practical, hands-on modules designed for modern
           engineers and designers.
         </div>
-        <Link href="/dell-design-system">
+        <Link href="/dds-learning">
           <DDSTag>
             <span
               className="dds__p--md"
