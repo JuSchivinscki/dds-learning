@@ -1,66 +1,76 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import { DDSBadge, DDSTag } from "@dds/react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div
+      className="dds__grid dds__grid-cols--2 dds__grid--regular"
+      style={{
+        gap: "var(--dds-spacing-2xl)",
+        margin: "var(--dds-spacing-3xl)",
+        padding: "var(--dds-spacing-7xl)",
+        alignItems: "center",
+      }}
+    >
+      <section>
+        <div>
+          <div
+            className="dds__d-flex dds__p-3"
+            style={{ marginBottom: "var(--dds-spacing-lg)" }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <DDSBadge color="neutral" className="dds__mr--sm">
+              7 Modules
+            </DDSBadge>
+            <DDSBadge color="neutral" className="dds__mr--sm">
+              1 Project
+            </DDSBadge>
+            <DDSBadge color="brand" emphasis="light">
+              All Components
+            </DDSBadge>
+          </div>
         </div>
-      </main>
+        <div
+          className="dds__display--1 dds__mt-7"
+          style={{
+            color: "var(--dds-color-light-blue-70)",
+            marginBottom: "var(--dds-spacing-lg)",
+            fontWeight: "var(--dds-font-weight-medium)",
+          }}
+        >
+          Learn the Dell Design System by building
+        </div>
+        <div
+          className="dds__subtitle--2"
+          style={{
+            marginBottom: "var(--dds-spacing-lg)",
+            fontWeight: "var(--dds-font-weight-regular)",
+          }}
+        >
+          Master the core principles of accessibility, consistency, and
+          scalability through practical, hands-on modules designed for modern
+          engineers and designers.
+        </div>
+        <Link href="/dell-design-system">
+          <DDSTag>
+            <span
+              className="dds__p--md"
+              style={{
+                color: "var(--dds-color-neutral-white)",
+              }}
+            >
+              Get Started
+            </span>
+          </DDSTag>
+        </Link>
+      </section>
+      <Image
+        src="/home-bg.png"
+        alt="home page image"
+        loading="eager"
+        width={700}
+        height={500}
+      />
     </div>
   );
 }
