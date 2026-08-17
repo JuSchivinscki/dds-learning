@@ -1,15 +1,42 @@
 .dds-learning-layout {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  align-items: stretch;
+}
 
-  :global(.dds__sidenav) {
-    height: 100vh;
-    position: sticky;
-    top: 0;
-  }
+.dds-learning-body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: stretch;
+}
+
+.dds-learning-sidebar-wrapper {
+  flex: 0 0 auto;
+  align-self: stretch;
+  background-color: #f5f5f5;
 }
 
 .dds-learning-content {
+  flex: 1;
   padding: 2rem;
-  overflow-y: auto;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dds-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dds-learning-chapter__title {
+  font-weight: 600;
+  padding: 8px 16px 4px;
+  font-size: 0.85rem;
+  color: var(--dds-color-gray-70);
 }

@@ -1,4 +1,5 @@
 import Header from "./(header)/header-component";
+import { tutorialChapters } from "@/content/tutorial";
 import "./dds-learning.scss";
 import {
   DDSSidenav,
@@ -16,41 +17,41 @@ export default function TutorialLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="dds-learning-layout ">
+    <div className="dds-learning-layout">
       <Header />
-      <DDSSidenav collapse={false} className="dds--light-mode">
-        <DDSSidenavMenu>
-          <DDSSidenavGroup id="dell-design-system">
-            <DDSSidenavGroupLabel id="dds-group-label-dell">
-              Dell Design System
-            </DDSSidenavGroupLabel>
-            <DDSSidenavGroupContent>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Getting Started </DDSSidenavItemContent>
-              </DDSSidenavItem>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Base layout </DDSSidenavItemContent>
-              </DDSSidenavItem>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Module 01 </DDSSidenavItemContent>
-              </DDSSidenavItem>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Module 02 </DDSSidenavItemContent>
-              </DDSSidenavItem>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Module 03 </DDSSidenavItemContent>
-              </DDSSidenavItem>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Module 04 </DDSSidenavItemContent>
-              </DDSSidenavItem>
-              <DDSSidenavItem>
-                <DDSSidenavItemContent> Module 05 </DDSSidenavItemContent>
-              </DDSSidenavItem>
-            </DDSSidenavGroupContent>
-          </DDSSidenavGroup>
-        </DDSSidenavMenu>
-      </DDSSidenav>
-      <main className="dds-learning-content">{children}</main>
-    </section>
+      <div className="dds-learning-body">
+        <div className="dds-learning-sidebar-wrapper">
+          <DDSSidenav collapse={false} className="dds--light-mode">
+            <DDSSidenavMenu>
+              <DDSSidenavGroup id="tutorial-group">
+                <DDSSidenavGroupLabel id="tutorial-group-label">
+                  Tutorial
+                </DDSSidenavGroupLabel>
+                <DDSSidenavGroupContent>
+                  {tutorialChapters.map((chapter) => (
+                    <div key={chapter.id} className="dds-learning-chapter">
+                      <div className="dds-learning-chapter__title">
+                        {chapter.title}
+                      </div>
+                      {chapter.steps.map((step) => (
+                        <DDSSidenavItem
+                          key={step.id}
+                          href={`/tutorial/${chapter.id}/${step.id}`}
+                        >
+                          <DDSSidenavItemContent>
+                            {step.title}
+                          </DDSSidenavItemContent>
+                        </DDSSidenavItem>
+                      ))}
+                    </div>
+                  ))}
+                </DDSSidenavGroupContent>
+              </DDSSidenavGroup>
+            </DDSSidenavMenu>
+          </DDSSidenav>
+        </div>
+        <main className="dds-learning-content">{children}</main>
+      </div>
+    </div>
   );
 }
