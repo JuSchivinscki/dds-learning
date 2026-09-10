@@ -6,7 +6,6 @@
 
 .dds-learning-body {
   display: flex;
-  flex-direction: row;
   flex: 1;
   align-items: stretch;
 }
@@ -14,29 +13,103 @@
 .dds-learning-sidebar-wrapper {
   flex: 0 0 auto;
   align-self: stretch;
-  background-color: #f5f5f5;
+  border-right: 1px solid var(--dds-color-gray-30);
 }
 
 .dds-learning-content {
   flex: 1;
-  padding: 2rem;
+  padding: var(--dds-spacing-xl);
 }
 
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Tutorial */
+
+.tutorial-step {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: var(--dds-spacing-xxl);
 }
 
-.dds-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.tutorial-step h2 {
+  margin: 0 0 var(--dds-spacing-lg);
+  color: var(--dds-color-gray-90);
+  font-weight: 700;
 }
 
-.dds-learning-chapter__title {
+.tutorial-step p {
+  margin: 0 0 var(--dds-spacing-lg);
+  color: var(--dds-color-gray-80);
+  line-height: 1.6;
+}
+
+/* Code */
+
+.tutorial-code-block {
+  margin: var(--dds-spacing-xl) 0;
+  overflow: hidden;
+  border: 1px solid var(--dds-color-gray-30);
+  border-radius: 6px;
+}
+
+.tutorial-code-block__label {
+  padding: var(--dds-spacing-sm) var(--dds-spacing-md);
+  border-bottom: 1px solid var(--dds-color-gray-30);
+
+  background-color: var(--dds-color-gray-20);
+  color: var(--dds-color-gray-80);
+
+  font-size: 0.875rem;
   font-weight: 600;
-  padding: 8px 16px 4px;
-  font-size: 0.85rem;
-  color: var(--dds-color-gray-70);
+}
+
+.tutorial-code-block__pre {
+  margin: 0;
+  padding: var(--dds-spacing-lg);
+  overflow-x: auto;
+
+  background-color: var(--dds-color-gray-90);
+  color: white;
+
+  font-family: monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.tutorial-code-block__pre code {
+  font-family: inherit;
+}
+
+/* Table */
+
+.tutorial-step__table {
+  width: 100%;
+  margin: var(--dds-spacing-xl) 0;
+  border-collapse: collapse;
+  border: 1px solid var(--dds-color-gray-30);
+}
+
+.tutorial-step__table th,
+.tutorial-step__table td {
+  padding: var(--dds-spacing-sm) var(--dds-spacing-md);
+  border: 1px solid var(--dds-color-gray-30);
+  text-align: left;
+}
+
+.tutorial-step__table th {
+  background-color: var(--dds-color-gray-20);
+  color: var(--dds-color-gray-90);
+  font-weight: 700;
+}
+
+/* Expected result */
+
+.tutorial-step__expected-result {
+  margin-top: var(--dds-spacing-xl) !important;
+  padding: var(--dds-spacing-md);
+
+  border-left: 4px solid var(--dds-color-blue-70);
+  background-color: var(--dds-color-gray-20);
+}
+
+.tutorial-step__expected-result strong {
+  color: var(--dds-color-gray-90);
 }

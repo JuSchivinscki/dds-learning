@@ -1,14 +1,18 @@
+import { DDSTag } from "@dds/react";
 import "../(header)/header-component.scss";
 
 const Header = () => {
   return (
-    <header className="header dds__flex-row dds__align-items-center dds__pl-4">
-      <h1
-        className="header__title dds__heading--3"
-        style={{ color: "var(--dds-color-blue-70)" }}
+    <header className="header">
+      <h1 className="header__title dds__heading--3">DDS Learning</h1>
+
+      <DDSTag
+        rel="noopener noreferrer"
+        className="header__button"
+        color="brand"
       >
-        DDS Learning
-      </h1>
+        Visit Dell Design System
+      </DDSTag>
     </header>
   );
 };

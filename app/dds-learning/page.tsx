@@ -1,16 +1,23 @@
 import { DDSButton, DDSDivider } from "@dds/react";
 import TechCards from "./(tecnologies-cards)/technologies-cards-component";
-import Image from "next/image";
 import "./dds-learning.scss";
 
 const WelcomeDDS = () => {
   return (
     <div>
       <div>
-        <h1 className="dds__display--3"> Welcome to DDS Learning </h1>
+        <h1 className="dds__display--3"> Welcome aboard! </h1>
+      </div>
+
+      <div
+        className="dds__heading--5"
+        style={{ marginBottom: "var(--dds-spacing-xl)" }}
+      >
+        DDS Learning is where you master the Dell Design System, one hands-on
+        module at a time.
       </div>
       <div
-        className="dds__subtitle--1"
+        className="dds__heading--5"
         style={{ marginBottom: "var(--dds-spacing-xl)" }}
       >
         {" "}
@@ -21,32 +28,7 @@ const WelcomeDDS = () => {
       <div className="dds--light-mode">
         <TechCards />
       </div>
-      <span className="dds__caption dds__mt-5">
-        {" "}
-        You only need one of JavaScript or TypeScript — DDS supports both.{" "}
-      </span>
-      <DDSDivider kind="thin" style={{ margin: "var(--dds-spacing-7xl)" }} />
-      <div>
-        <h1 className="dds__heading--2"> Ready to start? </h1>
-
-        <div className="image-container">
-          <Image
-            src="/home-bg.png"
-            alt="home page image"
-            width={700}
-            height={500}
-          />
-        </div>
-        <div className="dds-button  ">
-          <DDSButton
-            style={{
-              color: "var(--dds-color-neutral-white)",
-            }}
-          >
-            Start
-          </DDSButton>
-        </div>
-      </div>
+      <DDSButton> Start step 1</DDSButton>
     </div>
   );
 };

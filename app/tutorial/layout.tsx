@@ -1,8 +1,6 @@
-import Header from "./(header)/header-component";
-
+import Header from "../dds-learning/(header)/header-component";
 import { tutorialChapters } from "@/content/tutorial";
-
-import "./dds-learning.scss";
+import "../dds-learning/dds-learning.scss";
 
 import {
   DDSSidenav,
@@ -24,7 +22,7 @@ export default function TutorialLayout({
       <Header />
 
       <div className="dds-learning-body">
-        <div className="dds-learning-sidebar-wrapper">
+        <aside className="dds-learning-sidebar-wrapper">
           <DDSSidenav collapse={false} className="dds--light-mode">
             <DDSSidenavMenu>
               {tutorialChapters.map((chapter) => (
@@ -49,7 +47,7 @@ export default function TutorialLayout({
               ))}
             </DDSSidenavMenu>
           </DDSSidenav>
-        </div>
+        </aside>
 
         <main className="dds-learning-content">{children}</main>
       </div>

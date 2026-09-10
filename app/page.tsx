@@ -25,7 +25,7 @@ export default function Home() {
             <DDSBadge color="neutral" className="dds__mr--sm">
               1 Project
             </DDSBadge>
-            <DDSBadge color="brand" emphasis="light">
+            <DDSBadge color="neutral" className="dds__mr--sm">
               All Components
             </DDSBadge>
           </div>
@@ -35,7 +35,6 @@ export default function Home() {
           style={{
             color: "var(--dds-color-light-blue-70)",
             marginBottom: "var(--dds-spacing-lg)",
-            fontWeight: "var(--dds-font-weight-medium)",
           }}
         >
           Learn the Dell Design System by building
@@ -64,13 +63,14 @@ export default function Home() {
           </DDSTag>
         </Link>
       </section>
-      <Image
-        src="/home-bg.png"
-        alt="home page image"
-        loading="eager"
-        width={700}
-        height={500}
-      />
+      <section>
+        <Image
+          alt="Dell Design System illustration"
+          src="/home-bg.png"
+          width={500}
+          height={500}
+        />
+      </section>
     </div>
   );
 }

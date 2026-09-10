@@ -1,10 +1,49 @@
 .header {
-  padding-left: var(--dds-spacing-sm);
+  margin: var(--dds-spacing-md);
+  padding: var(--dds-spacing-sm) var(--dds-spacing-lg);
+
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   background-color: white;
-  color: var(--dds-color-blue-70);
-  border-bottom: 2px solid var(--dds-color-gray-30);
+  border-bottom: 1px solid var(--dds-color-gray-30);
 }
 
+.header {
+  margin: 0 var(--dds-spacing-md) var(--dds-spacing-md);
+}
 .header__title {
-  color: var(--dds-color-blue-60);
+  margin: 0;
+  color: var(--dds-color-blue-70);
+  font-weight: 700;
+}
+
+.header__button {
+  padding: var(--dds-spacing-sm) var(--dds-spacing-md);
+
+  background-color: white;
+  color: var(--dds-color-blue-70);
+
+  border: 1px solid var(--dds-color-blue-70);
+  border-radius: 4px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.header__button:focus-visible {
+  outline: 2px solid var(--dds-color-blue-70);
+  outline-offset: 2px;
+}
+
+.header__button:hover {
+  background-color: var(--dds-color-blue-70);
+  color: white;
 }

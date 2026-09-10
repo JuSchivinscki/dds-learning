@@ -2,22 +2,31 @@ import { TutorialChapter } from "@/types/tutorial";
 
 export const dashboardChapter: TutorialChapter = {
   id: "dashboard",
-  title: "Step 3 — Dashboard",
+  title: "Dashboard",
   intro:
-    "The Dashboard brings together everything built in Steps 1 and 2 into one summary screen: cards, tabs, a custom list of recent activity, and links back into the other two screens. Same approach as before — short intro per component, small code blocks, full files kept as checkpoints.",
+    "The Dashboard brings together everything built in Steps 1 and 2 into one summary screen: cards, tabs, a custom list of recent activity, and links back into the other two screens. It also includes three data-visualization charts as an extra section. The tutorial uses short explanations and incremental code blocks, with every code block identifying the file it belongs to and whether it is a complete file or a partial addition.",
+
   steps: [
     {
       id: "cards",
       title: "1. Cards",
+      dependsOn: [],
       blocks: [
         {
           type: "text",
           content:
-            "Three DDSCard elements summarize the whole app's financial state: income, expenses, and net balance. The first two follow an identical shape — a label + icon in the header, a large formatted number in the body:",
+            "Three DDSCard elements summarize the whole app's financial state: income, expenses, and net balance. The first two follow an identical shape — a label and icon in the header, and a large formatted number in the body.",
+        },
+        {
+          type: "text",
+          content:
+            "Create components/cards.tsx. The component receives income, expense, and balance as props. The following block shows the structure of the income card and the formatting helper used by the component.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/cards.tsx",
+          scope: "partial",
           content: `"use client";
 
 import { DDSCard, DDSCardBody, DDSCardHeader, DDSIcon } from "@dds/react";
@@ -44,11 +53,13 @@ const formatCurrency = (v: number) =>
         {
           type: "text",
           content:
-            'EXPENSES is the same structure with a different icon (arrow-down) and color (#b31b1b). The third card, NET BALANCE, is a real visual variation worth seeing — it uses a filled brand-color background and white text instead of the plain card style, making it stand out as the "headline" number of the three:',
+            "EXPENSES uses the same structure with a different icon (arrow-down) and color (#b31b1b). The third card, NET BALANCE, is a visual variation: it uses a filled brand-color background and white text instead of the plain card style, making it stand out as the headline number of the three.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/cards.tsx",
+          scope: "partial",
           content: `<DDSCard
   className="dds__p-4 dds__text--white"
   style={{ minHeight: "160px", backgroundColor: "#0063b8", border: "none" }}
@@ -71,25 +82,33 @@ const formatCurrency = (v: number) =>
         {
           type: "text",
           content:
-            "income, expense, and balance come in as props — this component itself has no calculation logic, it just formats and displays numbers it's given.",
+            "income, expense, and balance are received as props. This component does not calculate those values itself; it formats and displays numbers provided by the Dashboard page.",
         },
       ],
       expectedResult:
-        "three summary cards at the top of the Dashboard, the balance one visually emphasized.",
-      checkpointFile: "components/cards.tsx",
+        "Three summary cards at the top of the Dashboard, with the balance card visually emphasized.",
     },
+
     {
       id: "tabs",
       title: "2. Tabs",
+      dependsOn: ["cards"],
       blocks: [
         {
           type: "text",
           content:
-            "Two tabs switch between the main dashboard view and a category/payment breakdown. DDSTabs wraps a DDSTabsHeader (the clickable tab items) and a DDSTabsBody (one DDSTabsPane per tab, matched by itemId):",
+            "Two tabs switch between the main dashboard view and a category/payment breakdown. DDSTabs wraps a DDSTabsHeader containing the clickable tab items and a DDSTabsBody containing one DDSTabsPane per tab. Each DDSTabsPane is matched to its DDSTabsItem through itemId.",
+        },
+        {
+          type: "text",
+          content:
+            "Create components/tabsCharts.tsx. The component receives activeTab and onTabChange from its parent instead of managing the selected tab internally. It also accepts children, which will become the content of the main dashboard tab.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/tabsCharts.tsx",
+          scope: "full",
           content: `"use client";
 
 import { DDSTabs, DDSTabsBody, DDSTabsHeader, DDSTabsItem, DDSTabsPane } from "@dds/react";
@@ -133,25 +152,33 @@ export default TabsCharts;`,
         {
           type: "text",
           content:
-            "Both activeTab and onTabChange are controlled from outside — TabsCharts doesn't manage its own selected-tab state, the Dashboard page does. Both panes follow the same pattern now: whatever's passed as content for a tab lives inside its own DDSTabsPane, so the tab that's not active simply isn't rendered. For tab-dashboard, that content is passed in as children from the page; for tab-category, it's defined directly here since it's specific to this component (the Pie and Donut charts, covered in the extra Charts section below).",
+            "Both activeTab and onTabChange are controlled from outside — TabsCharts does not manage its own selected-tab state. The Dashboard page owns that state and passes it into TabsCharts. The tab-dashboard pane renders the children received from the page, while the tab-category pane renders the payment-method and category charts directly.",
         },
       ],
       expectedResult:
-        'a two-tab switcher — "Montlhy view" showing the main dashboard, "Detail Montlhy" showing a payment method and category breakdown side by side.',
-      checkpointFile: "checkpoints/dashboard/tabsCharts.tsx",
+        'A two-tab switcher — "Montlhy view" showing the main dashboard and "Detail Montlhy" showing payment-method and category breakdowns side by side.',
     },
+
     {
       id: "list",
       title: "3. List",
+      dependsOn: ["cards"],
       blocks: [
         {
           type: "text",
           content:
-            "Worth being upfront about this one: there's no dedicated DDSList component used here. What's called \"List\" in this project is a custom-built list of recent transactions — plain <div>s styled to read as a scannable list, not a DDS list primitive. It's still the right pattern even without the specific component — a scannable group of related items, which is exactly the List use case from Step 1's Table-vs-List comparison.",
+            'There is no dedicated DDSList component used here. What is called "List" in this project is a custom-built list of recent transactions — plain <div> elements styled to read as a scannable list, not a DDS list primitive. It is still the right pattern because this content is intended to be quickly scanned rather than compared across structured columns like the Transactions table.',
+        },
+        {
+          type: "text",
+          content:
+            "Create components/latestTransactions.tsx. This component reads transactions from localStorage, keeps the five most recently added entries, and displays them from newest to oldest.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/latestTransactions.tsx",
+          scope: "partial",
           content: `"use client";
 
 import { useEffect, useState } from "react";
@@ -184,11 +211,13 @@ const LatestTransactions = () => {
         {
           type: "text",
           content:
-            ".slice(-5).reverse() takes the last 5 transactions and reverses them — showing the 5 most recently added, newest first. Each row is a plain flex row, not a table row:",
+            ".slice(-5).reverse() takes the last five transactions and reverses them, showing the five most recently added transactions with the newest one first. Each item is rendered as a plain flex row rather than a table row.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/latestTransactions.tsx",
+          scope: "partial",
           content: `  return (
     <div>
       <h2 className="dds__body-1--lead">Last Transactions</h2>
@@ -215,21 +244,24 @@ const LatestTransactions = () => {
         },
       ],
       expectedResult:
-        "the 5 most recent transactions, each showing description, category, date, and a signed, formatted amount.",
-      checkpointFile: "checkpoints/dashboard/latestTransactions.tsx",
+        "The five most recent transactions, each showing description, category, date, and a signed, formatted amount.",
     },
+
     {
       id: "link",
       title: "4. Link",
+      dependsOn: ["list"],
       blocks: [
         {
           type: "text",
           content:
-            "Still inside LatestTransactions — a DDSLink closes out the list, pointing back to the full Transactions page:",
+            "Continue modifying components/latestTransactions.tsx. A DDSLink closes out the list and points back to the full Transactions page.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/latestTransactions.tsx",
+          scope: "partial",
           content: `      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "16px" }}>
         <DDSLink href="/Transactions">View all transactions</DDSLink>
       </div>
@@ -242,29 +274,33 @@ export default LatestTransactions;`,
         {
           type: "text",
           content:
-            'Worth contrasting with the Link you already saw in Step 2: there, DDSLink was kind="standalone", icon-only, used purely to trigger a tooltip. Here it\'s a plain text link with an href, used for actual navigation — the two are the same component covering very different jobs.',
+            'This is different from the DDSLink used in the Monthly Spending progress bar. There, DDSLink used kind="standalone" and an icon as an accessible tooltip trigger. Here it is a regular text link with an href and is used for actual navigation.',
         },
       ],
       expectedResult:
-        'a "View all transactions" link at the bottom of the list, navigating to /Transactions.',
+        'A "View all transactions" link at the bottom of the list, navigating to /Transactions.',
     },
+
     {
       id: "charts",
       title: "Extra — Charts (Bar, Pie, Donut)",
+      dependsOn: ["tabs"],
       blocks: [
         {
           type: "text",
           content:
-            "Not part of the original component list, but a real, substantial part of this screen, so it's included as a bonus chapter. All three charts come from a separate package, @dds/dv-components (Dell's data-visualization library, distinct from @dds/react), and share the same structural pattern — dynamically import the library, build a data array from your app's data, and hand it to a DDV.* constructor targeting a DOM element by id.",
+            "Not part of the original component list, but a substantial part of this screen, so it is included as a bonus section. All three charts come from @dds/dv-components, Dell's data-visualization library, which is distinct from @dds/react. The charts share the same general pattern: dynamically import the library, prepare a data array, create a DDV chart targeting a DOM element, and clean up the chart instance when the component changes or unmounts.",
         },
         {
           type: "text",
           content:
-            "The bar chart (components/(charts)/monthlyExpensesBarChart.tsx) reads directly from localStorage:",
+            "Create components/(charts)/monthlyExpensesBarChart.tsx. The bar chart reads monthly spending directly from localStorage.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/(charts)/monthlyExpensesBarChart.tsx",
+          scope: "partial",
           content: `"use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -283,11 +319,18 @@ const MonthlyExpensesBarChart = () => {
         {
           type: "text",
           content:
-            "The isClient flag exists because these charts can only run in the browser — localStorage and the DOM element the chart mounts into don't exist during server-side rendering, so the component renders null until after mount. Once client-side, a second effect dynamically imports the chart library and builds the chart:",
+            "The isClient flag exists because these charts require browser APIs. localStorage and the DOM element used as the chart target do not exist during server-side rendering, so the component waits until it has mounted in the browser.",
+        },
+        {
+          type: "text",
+          content:
+            "Once the component is running on the client, a second effect dynamically imports the chart library and creates the bar chart.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "components/(charts)/monthlyExpensesBarChart.tsx",
+          scope: "partial",
           content: `  useEffect(() => {
     if (!isClient) return;
 
@@ -327,30 +370,38 @@ const MonthlyExpensesBarChart = () => {
         {
           type: "text",
           content:
-            "Destroying the previous chart instance before creating a new one (and again on cleanup) prevents duplicate charts from stacking up on re-renders — data viz libraries like this one typically don't clean up after themselves automatically the way React components do.",
+            "Destroying the previous chart instance before creating a new one, and again during cleanup, prevents duplicate charts from stacking up after re-renders. This cleanup is especially important when using an imperative visualization library inside a React component.",
         },
         {
           type: "text",
           content:
-            "The Pie chart (paymentMethodPieChart.tsx) and Donut chart (categoryDonutChart.tsx) follow this exact same shape, with three differences: they pull data from useAllTransactions() (calculatePaymentMethod() and calculateExpensesCategory(), respectively) instead of localStorage directly, they call DDV.Pie(...) / DDV.Donut(...) instead of DDV.Bar(...), and both add a legend target and a percentage-formatted tooltip, since a pie/donut slice's share of the whole matters more than its raw value.",
+            "Create components/(charts)/paymentMethodPieChart.tsx and components/(charts)/categoryDonutChart.tsx using the same general client-side chart pattern. The original implementation differs from the bar chart in three important ways: both components obtain their data through useAllTransactions() instead of reading localStorage directly; they call DDV.Pie(...) or DDV.Donut(...) instead of DDV.Bar(...); and both include a legend target and percentage-formatted tooltip because the proportion of each category matters more than its raw value.",
+        },
+        {
+          type: "text",
+          content:
+            "The exact implementation of these two chart files is not reproduced here as a complete file. Treat this explanation as the architectural relationship between the three charts rather than as a complete copy-paste implementation.",
         },
       ],
       expectedResult:
-        'a bar chart of monthly spending on the main tab, plus a pie and donut chart on the "Detail" tab breaking down spending by payment method and category.',
-      checkpointFile:
-        "checkpoints/dashboard/monthlyExpensesBarChart.tsx, paymentMethodPieChart.tsx, categoryDonutChart.tsx",
+        'A bar chart of monthly spending on the main tab, plus a pie and donut chart on the "Detail" tab breaking down spending by payment method and category.',
     },
+
     {
       id: "bringing-it-together",
       title: "Bringing it together — the Dashboard page",
+      dependsOn: ["cards", "tabs", "list", "link", "charts"],
       blocks: [
         {
           type: "text",
-          content: "app/page.tsx ties everything above into one screen:",
+          content:
+            "Create or modify app/page.tsx. This page owns the active tab state and gets the financial totals from useAllTransactions(). It passes those values into CardsDashboard and places the main dashboard content inside TabsCharts.",
         },
         {
           type: "code",
           language: "tsx",
+          file: "app/page.tsx",
+          scope: "full",
           content: `"use client";
 import { useState } from "react";
 import CardsDashboard from "@/components/cards";
@@ -388,17 +439,21 @@ export default Dashboard;`,
         {
           type: "text",
           content:
-            "useAllTransactions (from @/utils/dashboardCalculations) is the same hook that powers the Pie and Donut charts — it reads all transactions from localStorage once, then exposes calculateIncome, calculateExpense, calculateBalance, calculateExpensesCategory, and calculatePaymentMethod as functions computed from that data. FinancialDashboard is a thin wrapper around the bar chart, giving it a consistent container.",
+            "useAllTransactions from @/utils/dashboardCalculations is the same hook used by the Pie and Donut charts. It reads the transaction data and exposes calculation functions such as calculateIncome, calculateExpense, calculateBalance, calculateExpensesCategory, and calculatePaymentMethod.",
         },
         {
           type: "text",
           content:
-            "LatestTransactions and TabsCharts both come from components/client-only.tsx — the same next/dynamic + ssr: false wrapper introduced in Step 1, needed here for the same reason: both depend on localStorage/the DOM, which don't exist during server-side rendering.",
+            "FinancialDashboard is a thin wrapper around the monthly expenses bar chart, giving it a consistent container on the Dashboard.",
+        },
+        {
+          type: "text",
+          content:
+            "LatestTransactions and TabsCharts are imported from components/client-only.tsx. This file was introduced earlier in the tutorial and uses dynamic loading with ssr: false for components that depend on browser-only APIs such as localStorage or the DOM.",
         },
       ],
       expectedResult:
-        "the complete Dashboard — cards, tabs, bar/pie/donut charts, and the latest transactions list, all reflecting real data from the other two screens.",
-      checkpointFile: "checkpoints/dashboard/page.tsx",
+        "The complete Dashboard — cards, tabs, bar/pie/donut charts, and the latest transactions list, all reflecting real data from the other two screens.",
     },
   ],
 };
