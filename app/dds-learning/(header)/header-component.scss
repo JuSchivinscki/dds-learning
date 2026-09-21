@@ -47,3 +47,9 @@
   background-color: var(--dds-color-blue-70);
   color: white;
 }
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--dds-spacing-md);
+}

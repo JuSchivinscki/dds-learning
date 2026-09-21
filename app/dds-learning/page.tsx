@@ -1,4 +1,4 @@
-import { DDSButton, DDSDivider } from "@dds/react";
+import { DDSButton, DDSLink } from "@dds/react";
 import TechCards from "./(tecnologies-cards)/technologies-cards-component";
 import "./dds-learning.scss";
 
@@ -28,7 +28,16 @@ const WelcomeDDS = () => {
       <div className="dds--light-mode">
         <TechCards />
       </div>
-      <DDSButton> Start step 1</DDSButton>
+      <DDSLink
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "var(--dds-spacing-xl)",
+        }}
+        href="/tutorial/transactions/table"
+      >
+        <DDSButton> Let's start </DDSButton>
+      </DDSLink>
     </div>
   );
 };
